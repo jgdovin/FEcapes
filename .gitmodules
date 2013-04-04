@@ -1,0 +1,3 @@
+[submodule "ForgeEssentialsMain"]
+	path = ForgeEssentialsMain
+	url = git://github.com/ForgeEssentials/ForgeEssentialsMain.git
