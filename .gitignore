@@ -20,7 +20,7 @@
 !/jars/coremods/
 
 *.bat
-*.sh
+
 *.db
 CHANGELOG
 modlist.txt
