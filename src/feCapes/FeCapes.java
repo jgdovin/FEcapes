@@ -1,5 +1,9 @@
 package feCapes;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
@@ -9,7 +13,6 @@ import com.google.common.eventbus.Subscribe;
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.versioning.VersionParser;
@@ -19,8 +22,6 @@ public class FeCapes extends DummyModContainer
 {
 	public static final String VERSION = "@VERION@";
 	public static final String CHANNEL = "FeCapes";
-	
-	NetworkHandler networkHandler = new NetworkHandler();
 	
 	public FeCapes()
 	{
@@ -36,9 +37,6 @@ public class FeCapes extends DummyModContainer
 		meta.useDependencyInformation = true;
 		instance = this;
 	}
-	
-	@Override
-    public boolean isNetworkMod() {return true;}
 	
 	@Override
 	public boolean registerBus(EventBus bus, LoadController controller)
@@ -71,12 +69,34 @@ public class FeCapes extends DummyModContainer
 		logger = e.getModLog();
 		config = new FeCapesConfig(e.getSuggestedConfigurationFile());
 		side = e.getSide();
+		
+		NetworkRegistry.instance().registerChannel(new NetworkHandler(), CHANNEL);
+		NetworkRegistry.instance().registerConnectionHandler(new NetworkHandler());
+		
+		getFEdevs();
 	}
 	
-	@Subscribe
-	public void init(FMLInitializationEvent e)
+	public ArrayList<String> fedevs = new ArrayList<String>();
+	
+	public void getFEdevs()
 	{
-		NetworkRegistry.instance().registerConnectionHandler(networkHandler);
-		NetworkRegistry.instance().registerChannel(networkHandler, CHANNEL, side);
+		try 
+		{
+		    // Create a URL for the desired page
+		    URL url = new URL("https://raw.github.com/ForgeEssentials/ForgeEssentialsMain/master/fedevs.txt");
+		    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		    String str;
+		    while ((str = in.readLine()) != null) 
+		    {
+		    	str = str.trim();
+		        System.out.println(str);
+		        fedevs.add(str);
+		    }
+		    in.close();
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
 }

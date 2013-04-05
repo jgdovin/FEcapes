@@ -39,8 +39,6 @@ public class NetworkHandler implements IConnectionHandler, IPacketHandler
 				CapeHandler.serverURL = stream.readUTF();
 				
 				FeCapes.log().info("Got packet from " + manager.getSocketAddress());
-				System.out.println("Got packet from " + manager.getSocketAddress());
-				((EntityPlayer)player).sendChatToPlayer("Packet send to you");
 			}
 		}
 		catch (Exception e)
@@ -55,7 +53,6 @@ public class NetworkHandler implements IConnectionHandler, IPacketHandler
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager)
 	{
-		/*
 		ByteArrayOutputStream streambyte = new ByteArrayOutputStream();
 		DataOutputStream stream = new DataOutputStream(streambyte);
 
@@ -76,8 +73,6 @@ public class NetworkHandler implements IConnectionHandler, IPacketHandler
 		
 		((EntityPlayer)player).sendChatToPlayer("Packet send to you");
 		FeCapes.log().info("Packet send to " + ((EntityPlayer)player).username);
-		System.out.println("Packet send to " + ((EntityPlayer)player).username);
-		*/
 	}
 
 	/**
@@ -86,7 +81,7 @@ public class NetworkHandler implements IConnectionHandler, IPacketHandler
 	@Override
 	public String connectionReceived(NetLoginHandler netHandler, INetworkManager manager) 
 	{
-		return null;
+		return "";
 	}
 
 	/**

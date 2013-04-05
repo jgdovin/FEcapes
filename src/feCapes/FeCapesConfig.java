@@ -23,7 +23,7 @@ public class FeCapesConfig
 		config.addCustomCategoryComment(cat, "The settings only work server side.\nThe server sends over stuff to the clients.");
 		
 		overrideMojang = config.get(cat, "overrideMojang", true, "Override Mojang capes.").getBoolean(true);
-		serverURL = config.get(cat, "serverURL", "http://driesgames.game-server.cc/capes/", "Your cape server.").getString();
+		serverURL = config.get(cat, "serverURL", "", "Your cape server.").getString();
 		
 		config.save();
 	}

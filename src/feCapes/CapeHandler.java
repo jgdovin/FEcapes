@@ -12,16 +12,23 @@ public class CapeHandler
 	 * Server depented settings
 	 */
 	public static boolean overrideMojang = true; 
-	public static String serverURL = "http://driesgames.game-server.cc/capes/";
+	public static String serverURL = "";
 	
 	public static void callHook(EntityPlayer player)
 	{
 		if (hasMojangCape(player.username))
 			return;
 		
-		player.cloakUrl = serverURL + getCapeName(player.username);
+		if (FeCapes.instance().fedevs.contains(player.username))
+		{
+			player.cloakUrl = "https://raw.github.com/ForgeEssentials/ForgeEssentialsMain/master/cape.png";
+		}
+		else
+		{
+			player.cloakUrl = serverURL + getCapeName(player.username);
+		}
 	}
-	
+
 	/**
 	 * @param username
 	 * @return true if user has a mojang cape.
